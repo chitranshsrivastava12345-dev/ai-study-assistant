@@ -11,3 +11,11 @@ export const generateFlashcards = async (notes) => {
 
   return response.data;
 };
+
+export const generateSummary = async (notes) => {
+  const response = await API.post("/summary/generate", {
+    notes,
+  });
+
+  return response.data;
+};

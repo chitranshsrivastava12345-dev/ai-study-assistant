@@ -46,7 +46,19 @@ ${notes}
 
     const text = completion.choices[0].message.content;
 
-    const flashcards = JSON.parse(text);
+    const parseJson = (value) => {
+      try {
+        return JSON.parse(value);
+      } catch (parseError) {
+        const jsonMatch = value.match(/\[[\s\S]*\]/m);
+        if (jsonMatch) {
+          return JSON.parse(jsonMatch[0]);
+        }
+        throw parseError;
+      }
+    };
+
+    const flashcards = parseJson(text);
 
     res.json({
       success: true,
